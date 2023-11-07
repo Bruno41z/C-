@@ -1,0 +1,128 @@
+            *
+ * Created by SharpDevelop.
+ * User: User
+ * Date: 07.11.2023
+ * Time: 13:37
+ * 
+ * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ */
+using System;
+
+namespace bruno
+{
+    class Program
+    {
+        
+        static bool czymala(string s) {
+            for (int i=0;i<s.Length;i++) {
+                if (s[i]>='a' && s[i]<='z') {
+                    return true;
+                }
+                
+            }
+            return false;
+        }
+        
+        static bool czyduza(string s) {
+            for (int i=0;i<s.Length;i++) {
+                if (s[i]>='A' && s[i]<='Z') {
+                    return true;
+                }
+                
+            }
+            return false;
+        }
+        
+        static bool czycyfra(string s) {
+            for (int i=0;i<s.Length;i++) {
+                if (s[i]>='0' && s[i]<='9') {
+                    return true;
+                }
+                
+            }
+            return false;
+        }
+        
+        static bool czyinna(string s) {
+            for (int i =0;i<s.Length;i++) {
+                if (!((s[i]>='0' && s[i]<='9') || (s[i]>='A' && s[i]<='Z') || (s[i]>='a' && s[i]<='z'))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        public static void Main(string[] args)
+        {
+            
+            bool czydalej=false;
+            
+            do {
+            
+            string haslo;
+            
+            Console.WriteLine("Podaj swoje chasło");
+            haslo=Console.ReadLine();
+            
+            if (czymala(haslo)) {
+                Console.WriteLine("W haśle są małe litery :)");
+            }
+            else {
+                Console.WriteLine("W haśle nie ma małych liter!!!");
+            }
+            
+            if (czyduza(haslo)) {
+                Console.WriteLine("W haśle są wielkie litery :)");
+            }
+            else {
+                Console.WriteLine("W haśle nie ma wielkich liter!!!");
+            }
+            
+            if(czycyfra(haslo)) {
+                Console.WriteLine("W haśle są cyfry :)");
+            }
+            else {
+                Console.WriteLine("W haśle nie ma cyfr!!!");
+            }
+            
+            if (czyinna(haslo)) {
+                Console.WriteLine("W haśle są znaki specjalnie :)");
+            }
+            else {
+                Console.WriteLine("W haśle nie ma znaków specjalnych!!!");
+            }
+            
+            Console.WriteLine("");
+            
+            if (czymala(haslo) && czyduza(haslo) && czycyfra(haslo) && czyinna(haslo) && haslo.Length>=8) {
+                Console.WriteLine("Hasło silne, spełnia wszystkie wymogi :)");
+            }
+            else {
+                Console.WriteLine("Hasło nie spełnia wymogów!!! Zmień je!!!");
+            }
+            
+            Console.WriteLine("");
+            
+            
+            
+            
+            string wynik;
+            Console.WriteLine("Czy chcesz sprawdzić jeszcze raz? tak/nie");
+            wynik=Console.ReadLine();
+            
+            if (wynik=="tak") {
+                czydalej=true;
+            }
+            if (wynik=="nie") {
+                czydalej=false;
+            }
+            
+            }
+            
+            while(czydalej==true);
+            
+            Console.Write("Press any key to continue . . . ");
+            Console.ReadKey(true);
+        }
+    }
+}       
