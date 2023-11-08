@@ -1,0 +1,132 @@
+using System;
+
+class Program
+{
+    static char[,] board = new char[3, 3];
+    static char currentPlayer = 'X';
+    static bool gameOver = false;
+
+    static void Main()
+    {
+        InitializeBoard();
+        while (!gameOver)
+        {
+            DrawBoard();
+            MakeMove();
+            if (CheckForWin() || CheckForDraw())
+            {
+                gameOver = true;
+                DrawBoard();
+                if (CheckForWin())
+                {
+                    Console.WriteLine("Gracz " + currentPlayer + " wygrywa!");
+                }
+                else
+                {
+                    Console.WriteLine("Remis!");
+                }
+            }
+            else
+            {
+                ChangePlayer();
+            }
+        }
+    }
+
+    static void InitializeBoard()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                board[i, j] = ' ';
+            }
+        }
+    }
+
+    static void DrawBoard()
+    {
+        Console.Clear();
+        Console.WriteLine("   0  1  2");
+        for (int i = 0; i < 3; i++)
+        {
+            Console.Write(i + " ");
+            for (int j = 0; j < 3; j++)
+            {
+                Console.Write("[" + board[i, j] + "]");
+            }
+            Console.WriteLine();
+        }
+    }
+
+    static void MakeMove()
+    {
+        Console.Write("Gracz " + currentPlayer + ", podaj współrzędne (np. 1 2): ");
+        string input = Console.ReadLine();
+        string[] coordinates = input.Split(' ');
+        if (coordinates.Length == 2 && int.TryParse(coordinates[0], out int row) && int.TryParse(coordinates[1], out int col) &&
+            row >= 0 && row < 3 && col >= 0 && col < 3 && board[row, col] == ' ')
+        {
+            board[row, col] = currentPlayer;
+        }
+        else
+        {
+            Console.WriteLine("Niepoprawne współrzędne. Spróbuj ponownie.");
+            MakeMove();
+        }
+    }
+
+    static void ChangePlayer()
+    {
+        if (currentPlayer == 'X')
+        {
+            currentPlayer = 'O';
+        }
+        else
+        {
+            currentPlayer = 'X';
+        }
+    }
+
+    static bool CheckForWin()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if (board[i, 0] == currentPlayer && board[i, 1] == currentPlayer && board[i, 2] == currentPlayer)
+            {
+                return true;
+            }
+            if (board[0, i] == currentPlayer && board[1, i] == currentPlayer && board[2, i] == currentPlayer)
+            {
+                return true;
+            }
+        }
+
+        if (board[0, 0] == currentPlayer && board[1, 1] == currentPlayer && board[2, 2] == currentPlayer)
+        {
+            return true;
+        }
+
+        if (board[0, 2] == currentPlayer && board[1, 1] == currentPlayer && board[2, 0] == currentPlayer)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    static bool CheckForDraw()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (board[i, j] == ' ')
+                {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
