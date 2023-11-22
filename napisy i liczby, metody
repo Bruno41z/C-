@@ -1,0 +1,141 @@
+﻿/*
+ * Created by SharpDevelop.
+ * User: User
+ * Date: 21.11.2023
+ * Time: 13:36
+ * 
+ * To change this template use Tools | Options | Coding | Edit Standard Headers.
+ */
+using System;
+using System.Threading;
+
+namespace bruno_kaczmarek
+{
+	class Program
+	{
+		static bool pierwsza (int n) {
+			if (n<=1) return true;
+			for (int i=2;i<Math.Sqrt(n);i++) {
+				if (n%i==0) return false;
+			}
+			return true;
+		}
+		
+		static int suma_zawartych (int n) {
+			int sum=0;
+			while(n!=0) {
+				sum+=n%10;
+				n/=10;
+			}
+			return sum;
+		}
+		
+		static int ile_wyrazow (string t) {
+			int ile=0;
+			for (int i=0;i<t.Length;i++) {
+				if (t[i]==' ') ile++;
+			}
+			return (ile+1);
+		}
+		
+		static int ile_znakow (string t, char z) {
+			int ile_z=0;
+			for (int i=0;i<t.Length;i++) {
+				if (t[i]==z) ile_z++;
+			}
+			return ile_z;
+		}
+		
+		public static void Main(string[] args)
+		{
+			
+
+			int wybor;
+			Console.WriteLine("Wybierz: \n 1 - Zadanie 1\n 2 - Zadanie 2\n 3 - Koniec");
+			wybor=int.Parse(Console.ReadLine());
+			
+			switch (wybor) {
+					
+				case 1:
+					
+					Console.WriteLine("");
+					int liczba;
+					Console.WriteLine("Podaj liczbę do sprawdzenia czy jest pierwsza:");
+					liczba=int.Parse(Console.ReadLine());
+					
+					Console.WriteLine("");
+					
+					if (pierwsza(liczba)) {
+						Console.WriteLine("Liczba {0} jest pierwsza",liczba);
+					}
+					if (pierwsza(liczba)==false) {
+						Console.WriteLine("Liczba {0} nie jest pierwsza",liczba);
+					}
+					
+					Console.WriteLine("");
+					
+					Console.WriteLine("Liczby pierwsze z zakresu 1000 --> 1500");
+					
+					for (int i=1000;i<1500;i++) {
+						if (pierwsza(i)) {
+							Console.Write(i+", ");
+						}
+					}
+					Console.WriteLine("");
+					Console.WriteLine("");
+					
+					int liczba2;
+					Console.WriteLine("Podaj liczbę do sprawdzenia sumy liczb w niej zawartych:");
+					liczba2=int.Parse(Console.ReadLine());
+					
+					Console.WriteLine("");
+					
+					Console.WriteLine("Suma liczb zawartych w liczbie {0} wynosi: {1}",liczba2,suma_zawartych(liczba2));
+					
+					break;
+					
+				case 2:
+					
+					Console.WriteLine("");
+					
+					string teskt="it is said by the eldar that men came into the world in the time of the shadow of morgoth and they fell swiftly under his dominion for he sent his emissaries among them and they listened to his evil and cunning words and they worshipped the darkness and yet feared it but there were some that turned from evil and left the lands of their kindred and wandered ever westward for they had heard a rumour that in the west there was a light which the shadow could not dim the servants of morgoth pursued them with hatred and their ways were long and hard yet they came at last to the lands that look upon the sea and they entered beleriand in the days of the war";
+					
+					Console.WriteLine("TEKST:\n {0}",teskt);
+					
+					Console.WriteLine("");
+					
+					Console.WriteLine("Tekst zawiera {0} wyrazów",ile_wyrazow(teskt));
+					
+					Console.WriteLine("");
+					
+					
+					char znak;
+					Console.WriteLine("Podaj litere");
+					znak=char.Parse(Console.ReadLine());
+					
+					Console.WriteLine("");
+					
+					Console.WriteLine("W tekście litara: {0} występuje: {1} razy",znak,ile_znakow(teskt,znak));
+
+					break;
+					
+				case 3:
+					
+					Console.WriteLine("Koniec");
+					Thread.Sleep(1000);
+					Environment.Exit(0);
+					break;
+					
+				default:
+					
+					Console.WriteLine("Błędna opcja!!!");
+					break;
+					
+			}
+			
+			
+			Console.Write("Press any key to continue . . . ");
+			Console.ReadKey(true);
+		}
+	}
+}
